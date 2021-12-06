@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.peter.news.R
@@ -56,22 +58,30 @@ fun bindRecyclerViewCategories(recyclerView: RecyclerView, data: List<Category>?
 
 
 @BindingAdapter("apiStatus")
-fun bindStatus(statusImageView: ImageView, status: NewsViewModel.ApiStatus?) {
+fun bindStatus(statusView: LottieAnimationView, status: NewsViewModel.ApiStatus?) {
     when (status) {
         NewsViewModel.ApiStatus.LOADING -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.loading_animation)
+            statusView.visibility = View.VISIBLE
+            statusView.setAnimationFromUrl("https://assets7.lottiefiles.com/packages/lf20_szlepvdh.json")
+            statusView.playAnimation()
+
         }
         NewsViewModel.ApiStatus.ERROR -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_connection_error)
+            statusView.visibility = View.VISIBLE
+            statusView.setAnimationFromUrl("https://assets6.lottiefiles.com/private_files/lf30_chkimb7d.json")
+            statusView.playAnimation()
+//            statusImageView.setImageResource(R.drawable.ic_connection_error)
         }
         NewsViewModel.ApiStatus.DONE -> {
-            statusImageView.visibility = View.GONE
+            statusView.visibility = View.GONE
+            statusView.cancelAnimation()
         }
         NewsViewModel.ApiStatus.EMPTY -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_empty)
+            statusView.visibility = View.VISIBLE
+            statusView.setAnimationFromUrl("https://assets4.lottiefiles.com/packages/lf20_wnqlfojb.json")
+            statusView.playAnimation()
+
+//            statusImageView.setImageResource(R.drawable.ic_empty)
         }
 
     }

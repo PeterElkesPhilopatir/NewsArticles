@@ -37,17 +37,13 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     val status: LiveData<ApiStatus>
         get() = _status
 
-    private val _share = MutableLiveData<String>()
-    val share: LiveData<String>
-        get() = _share
-
     init {
         getDefaultData()
         getCategories(application)
     }
 
     fun getDefaultData() {
-
+        _data.value = ArrayList()
         coroutineScope.launch {
             var getPropertiesDeferred =
                 ApiService.NewsApi.retrofitService.getNews(
@@ -70,6 +66,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onSearch(query: String) {
+        _data.value = ArrayList()
         coroutineScope.launch {
             var getPropertiesDeferred = ApiService.NewsApi.retrofitService.getFilteredNews(
                 query,
@@ -91,6 +88,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onCategorise(category: String) {
+        _data.value = ArrayList()
         coroutineScope.launch {
             var getPropertiesDeferred = ApiService.NewsApi.retrofitService.getCategorizedNews(
                 category,
@@ -135,7 +133,6 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         list.add(Category("Geeky", "technology", application.getDrawable(R.drawable.ic_geek)!!))
         _categories.value = list
     }
-
 
 
 }

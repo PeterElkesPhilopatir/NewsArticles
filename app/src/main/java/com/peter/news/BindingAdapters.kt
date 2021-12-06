@@ -1,9 +1,14 @@
 package com.peter.webkeysnews
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,7 +24,7 @@ import androidx.core.net.toUri as toUri
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    Log.i("IMG",imgUrl.toString())
+    Log.i("IMG", imgUrl.toString())
     try {
         imgUrl?.let {
             imgView.clipToOutline = true
@@ -69,6 +74,32 @@ fun bindStatus(statusImageView: ImageView, status: NewsViewModel.ApiStatus?) {
             statusImageView.setImageResource(R.drawable.ic_empty)
         }
 
+    }
+}
+
+@BindingAdapter("shareClicked")
+fun bindShare(shareTextView: TextView, item: Article) {
+    shareTextView.setOnClickListener {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "See this Article " + item.title + "\n" + "From Here " + item.url
+            )
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+
+        try {
+            shareTextView.context.startActivity(shareIntent)
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(
+                shareTextView.context,
+                shareTextView.context.getString(R.string.sharing_not_available),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 

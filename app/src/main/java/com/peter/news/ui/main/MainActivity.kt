@@ -47,11 +47,9 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isEmpty())
+            override fun onQueryTextChange(query: String): Boolean {
+                if (query.isEmpty())
                     viewModel.getDefaultData()
-                else
-                    viewModel.onSearch(newText)
                 return true
             }
         })

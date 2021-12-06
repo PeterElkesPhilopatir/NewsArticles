@@ -3,4 +3,5 @@
     <string name="search_here">Search Here</string>
     <string name="share">Share</string>
     <string name="api_key">YOUR_API_KEY</string>
+    <string name="sharing_not_available">You can not share right now</string>
 </resources>

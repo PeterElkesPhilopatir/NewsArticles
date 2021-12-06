@@ -1,7 +1,10 @@
 package com.peter.news.ui.main
 
+import android.content.ActivityNotFoundException
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ShareCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +25,7 @@ class NewsAdapter (val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener{
             onClickListener.onClick(item)
         }
+
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Article>() {
@@ -39,6 +43,9 @@ class NewsViewHolder(private var binding: NewsItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Article) {
         binding.data = item
+        binding.txtShare.setOnClickListener {
+
+        }
         binding.executePendingBindings()
     }
 }
@@ -46,4 +53,6 @@ class NewsViewHolder(private var binding: NewsItemBinding) :
 class OnClickListener(val clickListener: (item: Article) -> Unit) {
     fun onClick(item:Article) = clickListener(item)
 }
+
+
 

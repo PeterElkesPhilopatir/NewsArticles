@@ -51,36 +51,55 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </FrameLayout>
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
 
-            android:text="@{data.author}"
-            tools:text="Author"
-            android:textSize="16sp"
             android:id="@+id/txt_author"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_margin="16dp"
+            android:layout_alignParentStart="true"
             android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
- />
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="@string/share"
-    android:visibility="gone"
+            android:text="@{data.author}"
+            android:textSize="16sp"
+            tools:text="Author" />
 
-    android:layout_weight="0.2"
-    android:layout_gravity="center"
-    android:padding="5dp"
-    android:gravity="center"/>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/txt_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            app:shareClicked="@{data}"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_share"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/share"
+            android:visibility="gone" />
+    </RelativeLayout>
 
 </LinearLayout>
         <LinearLayout
@@ -107,5 +126,6 @@
         <variable
             name="data"
             type="com.peter.news.pojo.Article" />
+
     </data>
 </layout>

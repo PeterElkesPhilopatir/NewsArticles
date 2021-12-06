@@ -21,8 +21,9 @@ import java.util.ArrayList
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-var app = application
-    enum class ApiStatus { LOADING, ERROR, DONE ,EMPTY}
+    var app = application
+
+    enum class ApiStatus { LOADING, ERROR, DONE, EMPTY }
 
     private val _data = MutableLiveData<List<Article>>()
     val data: LiveData<List<Article>>
@@ -33,10 +34,12 @@ var app = application
         get() = _categories
 
     private val _status = MutableLiveData<ApiStatus>()
-
-    // The external immutable LiveData for the request status String
     val status: LiveData<ApiStatus>
         get() = _status
+
+    private val _share = MutableLiveData<String>()
+    val share: LiveData<String>
+        get() = _share
 
     init {
         getDefaultData()
@@ -47,7 +50,8 @@ var app = application
 
         coroutineScope.launch {
             var getPropertiesDeferred =
-                ApiService.NewsApi.retrofitService.getNews("eg",
+                ApiService.NewsApi.retrofitService.getNews(
+                    "eg",
                     app.getString(R.string.api_key)
                 )
             try {
@@ -55,7 +59,7 @@ var app = application
                 var listResult = getPropertiesDeferred.await().articles
                 _data.value = listResult
                 _status.value = ApiStatus.DONE
-                if(_data.value!!.isEmpty())
+                if (_data.value!!.isEmpty())
                     _status.value = ApiStatus.EMPTY
                 Log.i("RESPONSE", _status.value.toString())
             } catch (e: Exception) {
@@ -76,7 +80,7 @@ var app = application
                 var listResult = getPropertiesDeferred.await().articles
                 _data.value = listResult
                 _status.value = ApiStatus.DONE
-                if(_data.value!!.isEmpty())
+                if (_data.value!!.isEmpty())
                     _status.value = ApiStatus.EMPTY
                 Log.i("RESPONSE", _status.value.toString())
             } catch (e: Exception) {
@@ -97,26 +101,41 @@ var app = application
                 var listResult = getPropertiesDeferred.await().articles
                 _data.value = listResult
                 _status.value = ApiStatus.DONE
-                if(_data.value!!.isEmpty())
+                if (_data.value!!.isEmpty())
                     _status.value = ApiStatus.EMPTY
                 Log.i("RESPONSE", _status.value.toString())
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 _data.value = ArrayList()
-                Log.e("Error",e.message.toString())
+                Log.e("Error", e.message.toString())
             }
         }
     }
 
-    private fun getCategories(application: Application){
-        val list : ArrayList<Category> = ArrayList()
-        list.add(Category("All","general",application.getDrawable(R.drawable.ic_all)!!))
-        list.add(Category("Business","business", application.getDrawable(R.drawable.ic_economy)!!))
-        list.add(Category("Entertainment","entertainment", application.getDrawable(R.drawable.ic_entertainment)!!))
-        list.add(Category("Healthy","health", application.getDrawable(R.drawable.ic_healthy)!!))
-        list.add(Category("Scientific","science",application.getDrawable( R.drawable.ic_science)!!))
-        list.add(Category("Sport","sports",application.getDrawable( R.drawable.ic_sports)!!))
-        list.add(Category("Geeky","technology",application.getDrawable( R.drawable.ic_geek)!!))
+    private fun getCategories(application: Application) {
+        val list: ArrayList<Category> = ArrayList()
+        list.add(Category("All", "general", application.getDrawable(R.drawable.ic_all)!!))
+        list.add(Category("Business", "business", application.getDrawable(R.drawable.ic_economy)!!))
+        list.add(
+            Category(
+                "Entertainment",
+                "entertainment",
+                application.getDrawable(R.drawable.ic_entertainment)!!
+            )
+        )
+        list.add(Category("Healthy", "health", application.getDrawable(R.drawable.ic_healthy)!!))
+        list.add(
+            Category(
+                "Scientific",
+                "science",
+                application.getDrawable(R.drawable.ic_science)!!
+            )
+        )
+        list.add(Category("Sport", "sports", application.getDrawable(R.drawable.ic_sports)!!))
+        list.add(Category("Geeky", "technology", application.getDrawable(R.drawable.ic_geek)!!))
         _categories.value = list
     }
+
+
+
 }

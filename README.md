@@ -34,21 +34,21 @@ API_KEY="YOUR_API_KEY"
 ```
 
 ## This application uses
-[Kotlin](https://kotlinlang.org/)
+*  [Kotlin](https://kotlinlang.org/)
 
-[Retrofit](https://square.github.io/retrofit/)
+*  [Retrofit](https://square.github.io/retrofit/)
 
-[Gson](https://github.com/google/gson)
+*  [Gson](https://github.com/google/gson)
 
-[Koin](https://insert-koin.io/)
+*  [Koin](https://insert-koin.io/)
 
-[Databinding](https://developer.android.com/topic/libraries/data-binding)
+*  [Databinding](https://developer.android.com/topic/libraries/data-binding)
 
-[Glide](https://github.com/bumptech/glide)
+*  [Glide](https://github.com/bumptech/glide)
 
-[Coroutines](https://developer.android.com/kotlin/coroutines)
+*  [Coroutines](https://developer.android.com/kotlin/coroutines)
 
-[MVVM](https://developer.android.com/topic/libraries/architecture/viewmodel)
+*  [MVVM](https://developer.android.com/topic/libraries/architecture/viewmodel)
 
-[Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
+*  [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 

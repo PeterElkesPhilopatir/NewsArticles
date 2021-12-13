@@ -3,16 +3,14 @@ package com.peter.news.ui.main
 import android.content.ActivityNotFoundException
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ShareCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.peter.news.databinding.NewsItemBinding
 import com.peter.news.pojo.Article
 
 class NewsAdapter (val onClickListener: OnClickListener) :
-    ListAdapter<Article, NewsViewHolder>(DiffCallback) {
+    PagingDataAdapter<Article, NewsViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             NewsViewHolder {
@@ -20,12 +18,11 @@ class NewsAdapter (val onClickListener: OnClickListener) :
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-        holder.itemView.setOnClickListener{
-            onClickListener.onClick(item)
-        }
 
+        getItem(position)?.let { holder.bind(it) }
+        holder.itemView.setOnClickListener {
+            getItem(position)?.let { it1 -> onClickListener.onClick(it1) }
+        }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Article>() {
@@ -41,18 +38,12 @@ class NewsAdapter (val onClickListener: OnClickListener) :
 
 class NewsViewHolder(private var binding: NewsItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: Article) {
-        binding.data = item
-        binding.txtShare.setOnClickListener {
-
-        }
+    fun bind(article: Article) {
+        binding.data = article
         binding.executePendingBindings()
     }
 }
 
-class OnClickListener(val clickListener: (item: Article) -> Unit) {
-    fun onClick(item:Article) = clickListener(item)
+class OnClickListener(val clickListener: (article: Article) -> Unit) {
+    fun onClick(article: Article) = clickListener(article)
 }
-
-
-

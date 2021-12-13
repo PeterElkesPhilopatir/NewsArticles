@@ -16,9 +16,8 @@ import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.peter.news.R
+import com.peter.news.network.ApiStatus
 import com.peter.news.pojo.Article
-import com.peter.news.pojo.Category
-import com.peter.news.ui.main.CategoriesAdapter
 import com.peter.news.ui.main.NewsAdapter
 import com.peter.news.ui.main.NewsViewModel
 import androidx.core.net.toUri as toUri
@@ -44,44 +43,28 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-@BindingAdapter("list_articles")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Article>?) {
-    val adapter = recyclerView.adapter as NewsAdapter
-    adapter.submitList(data)
-}
-
-@BindingAdapter("list_categories")
-fun bindRecyclerViewCategories(recyclerView: RecyclerView, data: List<Category>?) {
-    val adapter = recyclerView.adapter as CategoriesAdapter
-    adapter.submitList(data)
-}
-
-
 @BindingAdapter("apiStatus")
-fun bindStatus(statusView: LottieAnimationView, status: NewsViewModel.ApiStatus?) {
+fun bindStatus(statusView: LottieAnimationView, status: ApiStatus?) {
     when (status) {
-        NewsViewModel.ApiStatus.LOADING -> {
+        ApiStatus.LOADING -> {
             statusView.visibility = View.VISIBLE
             statusView.setAnimationFromUrl("https://assets7.lottiefiles.com/packages/lf20_szlepvdh.json")
             statusView.playAnimation()
 
         }
-        NewsViewModel.ApiStatus.ERROR -> {
+        ApiStatus.ERROR -> {
             statusView.visibility = View.VISIBLE
             statusView.setAnimationFromUrl("https://assets6.lottiefiles.com/private_files/lf30_chkimb7d.json")
             statusView.playAnimation()
-//            statusImageView.setImageResource(R.drawable.ic_connection_error)
         }
-        NewsViewModel.ApiStatus.DONE -> {
+        ApiStatus.DONE -> {
             statusView.visibility = View.GONE
             statusView.cancelAnimation()
         }
-        NewsViewModel.ApiStatus.EMPTY -> {
+        ApiStatus.EMPTY -> {
             statusView.visibility = View.VISIBLE
             statusView.setAnimationFromUrl("https://assets4.lottiefiles.com/packages/lf20_wnqlfojb.json")
             statusView.playAnimation()
-
-//            statusImageView.setImageResource(R.drawable.ic_empty)
         }
 
     }

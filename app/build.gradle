@@ -13,6 +13,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        buildConfigField("String", "API_KEY", API_KEY)
         multiDexEnabled true
         applicationId "com.peter.news"
         minSdkVersion 21
@@ -112,5 +113,28 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
+    // Koin Core features
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "androidx.paging:paging-common-ktx:$paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+// Koin Test features
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+
+    // Koin main features for Android
+    implementation "io.insert-koin:koin-android:$koin_version"
+// No more koin-android-viewmodel, koin-android-scope, koin-android-fragment
+
+// Java Compatibility
+    implementation "io.insert-koin:koin-android-compat:$koin_version"
+// Jetpack WorkManager
+    implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
+// Navigation Graph
+    implementation "io.insert-koin:koin-androidx-navigation:$koin_version"
+// Jetpack Compose
+    implementation "io.insert-koin:koin-androidx-compose:$koin_version"
+// Koin for Ktor
+    implementation "io.insert-koin:koin-ktor:$koin_version"
+// SLF4J Logger
+    implementation "io.insert-koin:koin-logger-slf4j:$koin_version"
 
 }

@@ -7,34 +7,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://newsapi.org/"
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL)
-    .build()
-
 interface ApiService {
-    @GET("v2/top-headlines")
-    fun getNews(@Query("country") country: String,@Query("apiKey") apikey: String):
+    @GET("v2/everything")
+    fun getNewsAsync(@Query("page") page: Int, @Query(value = "q") query: String,@Query(value = "pageSize") pageSize : Int, @Query("apiKey") apikey: String):
             Deferred<NewsJsonNestedResponse>
 
     @GET("v2/everything")
-    fun getFilteredNews(@Query("q") query: String,@Query("apiKey") apikey: String):
+    fun getFilteredNewsAsync(@Query("q") query: String, @Query("apiKey") apikey: String):
             Deferred<NewsJsonNestedResponse>
 
     @GET("v2/top-headlines")
-    fun getCategorizedNews(@Query("category") category: String,@Query("apiKey") apikey: String):
+    fun getCategorizedNewsAsync(@Query("category") category: String, @Query("apiKey") apikey: String):
             Deferred<NewsJsonNestedResponse>
 
-    object NewsApi {
-        val retrofitService: ApiService by lazy {
-            retrofit.create(ApiService::class.java)
-        }
-    }
 
 }
+
+enum class ApiStatus { LOADING, ERROR, DONE, EMPTY }
 
 data class NewsJsonNestedResponse(var articles :List<Article>,
                               var status:String,var totalResults : Int)

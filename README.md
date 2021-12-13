@@ -2,7 +2,7 @@
 [Main Screen](https://user-images.githubusercontent.com/22428532/145772220-61163c22-523d-48e3-9827-124086d9b7e3.jpg)
 [Details Screen](https://user-images.githubusercontent.com/22428532/145772246-24b3efad-6d8f-4229-9106-a1c8c948c269.jpg)
 
-##About
+## About
 Android application fetches articles from https://newsapi.org/
 
 ## How to use

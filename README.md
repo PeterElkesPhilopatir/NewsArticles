@@ -48,7 +48,7 @@ API_KEY="YOUR_API_KEY"
 
 [Coroutines](https://developer.android.com/kotlin/coroutines)
 
-MVVM
+[MVVM](https://developer.android.com/topic/libraries/architecture/viewmodel)
 
 [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 

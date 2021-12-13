@@ -49,3 +49,5 @@ API_KEY="YOUR_API_KEY"
 
 MVVM
 
+[Paging 3] (https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
+
